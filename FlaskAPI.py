@@ -21,8 +21,8 @@ class FlaskAPI:
     def register_routes(self):
         @self.app.route('/disconnect_meters', methods=['PUT'])
         def disconnect_meters():
-            # if not self.outage_manager.outage_active:
-            #     return jsonify({"error": "Outage not active"}), 400
+            if not self.outage_manager.outage_active:
+                return jsonify({"error": "Outage not active"}), 400
             try:
                 meters = request.json.get("smartMeters", [])
                 print(f"Disconnecting meters: {meters}")
@@ -40,8 +40,8 @@ class FlaskAPI:
             
         @self.app.route('/reconnect_meters', methods=['PUT'])
         def reconnect_meters():
-            # if self.outage_manager.outage_active:
-            #     return jsonify({"error": "Outage not active"}), 400
+            if self.outage_manager.outage_active:
+                return jsonify({"error": "Outage not active"}), 400
             try:
                 meters = request.json.get("smartMeters", [])
                 print(f"Reconnecting meters: {meters}")
