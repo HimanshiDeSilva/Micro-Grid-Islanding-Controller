@@ -2,7 +2,6 @@ import time
 from flask_cors import CORS
 from flask import Flask, jsonify, request
 
-
 class FlaskAPI:
     def __init__(self, outage_manager, tcp_client):
         self.app = Flask(__name__)

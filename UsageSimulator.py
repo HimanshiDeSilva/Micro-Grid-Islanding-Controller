@@ -35,7 +35,6 @@ class UsageSimulator:
             timestamp = (datetime.now(timezone.utc) - timedelta(seconds=30)).replace(microsecond=0).isoformat().replace("+00:00", "Z")
 
             for device_id, sm_id in self.device_map.items():
-                print(f"[{sm_id}] Fetching data for {device_id} at {timestamp}")
                 usage_list = self.fetch_power_data(device_id, timestamp)
 
                 if usage_list:
@@ -46,7 +45,6 @@ class UsageSimulator:
                     with self.data_lock:
                         self.latest_data[sm_id] = (active_power, reactive_power, last_entry['timeStamp'])
 
-                    print(f"[{sm_id}] Updated latest data: {active_power}, {reactive_power}")
                 else:
                     print(f"[{sm_id}] No data found.")
 
@@ -63,7 +61,6 @@ class UsageSimulator:
                         ap, rp, ts = self.latest_data[sm_id]
                         payload = f"HS01,{sm_id},{ap},{rp}"
                         payloads.append(payload)
-                        print(f"[{sm_id}] Prepared payload with timestamp {ts}")
                     else:
                         print(f"[{sm_id}] No data to send yet.")
 
