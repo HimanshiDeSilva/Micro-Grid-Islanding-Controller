@@ -69,7 +69,7 @@ class UsageSimulator:
 
             for payload in payloads:
                 full_message = f"POWER|{payload}"
-                self.tcp_client.send_command(full_message)  # Raw sending (no msg_type split)
+                self.tcp_client.send(full_message)  # Raw sending (no msg_type split)
                 print(f"Sent: {full_message}")
                 time.sleep(0.1)  # Give Simulink time to process each
 
